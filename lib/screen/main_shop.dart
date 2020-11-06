@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunfood/utility/signout_process.dart';
 
 class MainShop extends StatefulWidget {
   MainShop({Key key}) : super(key: key);
@@ -13,6 +14,12 @@ class _MainShopState extends State<MainShop> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Main shop'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => signOutProcess(),
+          )
+        ],
       ),
     );
   }

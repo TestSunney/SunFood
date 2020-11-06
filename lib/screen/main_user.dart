@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunfood/utility/signout_process.dart';
 
 class MainUser extends StatefulWidget {
   MainUser({Key key}) : super(key: key);
@@ -8,11 +11,31 @@ class MainUser extends StatefulWidget {
 }
 
 class _MainUserState extends State<MainUser> {
+  String nameUser;
+
+  @override
+  void initState() {
+    super.initState();
+    findUser();
+  }
+
+  Future<Null> findUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      nameUser = preferences.getString('Name');
+    });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Main page fomr user"),
+        title: Text(nameUser == null ? "Main user" : '$nameUser login'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.exit_to_app), onPressed: () => signOutProcess()),
+        ], //if has usernaem show word "user" :else show real use name
       ),
     );
   }

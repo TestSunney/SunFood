@@ -82,7 +82,7 @@ class _SignUpState extends State<SignUp> {
             child: Row(
               children: <Widget>[
                 Radio(
-                  value: 'shop',
+                  value: 'Shop',
                   groupValue: chooseType,
                   onChanged: (value) {
                     setState(() {
@@ -108,7 +108,7 @@ class _SignUpState extends State<SignUp> {
             child: Row(
               children: <Widget>[
                 Radio(
-                  value: 'rider',
+                  value: 'Rider',
                   groupValue: chooseType,
                   onChanged: (value) {
                     setState(() {

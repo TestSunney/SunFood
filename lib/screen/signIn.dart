@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunfood/model/user_model.dart';
 import 'package:sunfood/screen/Main_shop.dart';
 import 'package:sunfood/screen/main_rider.dart';
@@ -78,32 +79,44 @@ class _SignInState extends State<SignIn> {
         'http://192.168.56.1/getUserWhereUser.php?isAdd=true&User=$user';
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
+      //print('res = $response');
       var result = json.decode(response.data); //decode for json thai laungus
-      print('resulr =$result');
+      //print('resulr =$result');
+      print('$result'.runtimeType);
+      print(result.runtimeType);
 
       for (var map in result) {
         //for use result is array
         UserModel userModel = UserModel.fromJson(map);
-        if (password == userModel.password) {
-          String chooseType = userModel.chooseType;
-          if (chooseType == 'User') {
-            routeToService(MainUser());
-          } else if (chooseType == 'Shop') {
-            routeToService(MainShop());
-          } else if (chooseType == 'Rider') {
-            routeToService(MainRider());
+        //if (user.isEmpty == true )no fucking user name .need fix {
+          if (password == userModel.password) {
+            String chooseType = userModel.chooseType;
+            if (chooseType == 'User') {
+              routeToService(MainUser(), userModel);
+            } else if (chooseType == 'Shop') {
+              routeToService(MainShop(), userModel);
+            } else if (chooseType == 'Rider') {
+              routeToService(MainRider(), userModel);
+            } else {
+              normalDialog(context, "Error");
+            }
           } else {
-            normalDialog(context, "Erroe");
+            normalDialog(context, 'Worng password');
           }
-        } else {
-          normalDialog(context, 'Worng password');
-        }
+        //} else {
+        //  normalDialog(context, 'No user');
+        //}
       }
     } catch (e) {}
   }
 
-  void routeToService(Widget myWidget) {
+  Future<Null> routeToService(Widget myWidget, userModel) async {
+//shaer peferance
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('id', userModel.id);
+    preferences.setString('ChooseType', userModel.chooseType);
+    preferences.setString('Name', userModel.name);
+
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => myWidget,
     );

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunfood/screen/main_rider.dart';
+import 'package:sunfood/screen/main_shop.dart';
+import 'package:sunfood/screen/main_user.dart';
 import 'package:sunfood/screen/signIn.dart';
 import 'package:sunfood/screen/signUp.dart';
+import 'package:sunfood/utility/normal_dialog.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +13,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    checkPrefetance();
+  }
+
+  Future<Null> checkPrefetance() async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String chooseType = preferences.getString('ChooseType');
+      if (chooseType != null && chooseType.isNotEmpty) {
+        if (chooseType == 'User') {
+          routeToService(MainUser());
+        } else if (chooseType == 'Shop') {
+          routeToService(MainShop());
+        } else if (chooseType == 'Rider') {
+          routeToService(MainRider());
+        } else {
+          normalDialog(context, 'Error user type');
+        }
+      }
+    } catch (e) {}
+  }
+
+  void routeToService(Widget myWidget) {
+    MaterialPageRoute route = MaterialPageRoute(
+        //builder: (context) => myWidget(),
+        );
+    Navigator.pushAndRemoveUntil(context, route, (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
