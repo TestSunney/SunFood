@@ -231,7 +231,8 @@ class _SignUpState extends State<SignUp> {
             } else if (chooseType == null) {
               normalDialog(context, 'Choose type');
             } else {
-              registerThread();
+              checkUser(); //If user put all box, go to checkUser
+              //registerThread();
             }
           },
           child: Text(
@@ -241,10 +242,27 @@ class _SignUpState extends State<SignUp> {
         ),
       );
 
+  Future<Null> checkUser() async {
+    String url =
+        'http://192.168.56.1/getUserWhereUser.php?isAdd=true&User=$user';
+    try {
+      Response response = await Dio().get(url);
+      if (response.toString() == 'null') {
+        registerThread(); 
+        //Mean chack with Database, and it's not duplicate name, that's why is null
+        //if null go to registerThread=> to regis
+        //according to php
+      } else {
+        normalDialog(context, "This user is taken");// Not null
+      }
+    } catch (e) {}
+  }
+  //Ep8
+
   Future<Null> registerThread() async {
+    //regisection
     String url =
         'http://192.168.56.1/addUser.php?isAdd=true&Name=$name&User=$user&Password=$password&ChooseType=$chooseType';
-
     try {
       Response response = await Dio().get(url);
       print('res =$response');
