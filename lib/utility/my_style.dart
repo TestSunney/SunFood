@@ -4,8 +4,19 @@ class MyStyle {
   Color primary = Colors.red;
   Color secondry = Colors.red[100];
 
-  SizedBox  mySizeBox() => SizedBox(width: 8.0, height: 16.0,);
+  BoxDecoration myBoxDecoration(String namePic) {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('images/$namePic'),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
 
+  SizedBox mySizeBox() => SizedBox(
+        width: 8.0,
+        height: 16.0,
+      );
 
   Container showLogo() {
     return Container(
@@ -17,7 +28,9 @@ class MyStyle {
   Text showTitle(String title) => Text(
         title,
         style: TextStyle(
-            fontSize: 30, color: MyStyle().primary, fontWeight: FontWeight.bold),
+            fontSize: 30,
+            color: MyStyle().primary,
+            fontWeight: FontWeight.bold),
       );
   MyStyle();
 }

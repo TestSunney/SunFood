@@ -5,6 +5,7 @@ import 'package:sunfood/screen/main_shop.dart';
 import 'package:sunfood/screen/main_user.dart';
 import 'package:sunfood/screen/signIn.dart';
 import 'package:sunfood/screen/signUp.dart';
+import 'package:sunfood/utility/my_style.dart';
 import 'package:sunfood/utility/normal_dialog.dart';
 
 class Home extends StatefulWidget {
@@ -39,8 +40,8 @@ class _HomeState extends State<Home> {
 
   void routeToService(Widget myWidget) {
     MaterialPageRoute route = MaterialPageRoute(
-        //builder: (context) => myWidget(),
-        );
+      builder: (context) => myWidget,
+    );
     Navigator.pushAndRemoveUntil(context, route, (route) => false);
   }
 
@@ -82,6 +83,9 @@ class _HomeState extends State<Home> {
 
   UserAccountsDrawerHeader showHeadDrawer() {
     return UserAccountsDrawerHeader(
+      decoration:MyStyle().myBoxDecoration('guest.jpg'),
+      
+      currentAccountPicture: MyStyle().showLogo(),
       accountName: Text('Guest'),
       accountEmail: Text('Plese Login'),
     );

@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp( 
+      theme: ThemeData(primarySwatch: Colors.red),
       title: 'Sunney Food',
       home: Home(),// This trailing comma makes auto-formatting nicer for build methods.
     );
