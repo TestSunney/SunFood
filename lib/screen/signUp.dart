@@ -20,26 +20,30 @@ class _SignUpState extends State<SignUp> {
       appBar: AppBar(
         title: Text('Sign up'),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(30.0),
-        children: <Widget>[
-          myLogo(),
-          MyStyle().mySizeBox(),
-          showAppName(),
-          MyStyle().mySizeBox(),
-          nameForm(),
-          MyStyle().mySizeBox(),
-          userForm(),
-          MyStyle().mySizeBox(),
-          passForm(),
-          MyStyle().mySizeBox(),
-          MyStyle().showTitle('Type'),
-          MyStyle().mySizeBox(),
-          userRadio(),
-          ownerRadio(),
-          riderRadio(),
-          registerBtn(),
-        ],
+      body: Container(
+        decoration: BoxDecoration(color: Colors.lightBlueAccent[100]),
+        child: ListView(
+          
+          padding: EdgeInsets.all(30.0),
+          children: <Widget>[
+            myLogo(),
+            MyStyle().mySizeBox(),
+            showAppName(),
+            MyStyle().mySizeBox(),
+            nameForm(),
+            MyStyle().mySizeBox(),
+            userForm(),
+            MyStyle().mySizeBox(),
+            passForm(),
+            MyStyle().mySizeBox(),
+            MyStyle().showTitle('Type'),
+            MyStyle().mySizeBox(),
+            userRadio(),
+            ownerRadio(),
+            riderRadio(),
+            registerBtn(),
+          ],
+        ),
       ),
     );
   }
@@ -253,7 +257,7 @@ class _SignUpState extends State<SignUp> {
         //if null go to registerThread=> to regis
         //according to php
       } else {
-        normalDialog(context, "This user is taken");// Not null
+        normalDialog(context, "This user: \"$user\" is taken,change new one");// Not null
       }
     } catch (e) {}
   }
