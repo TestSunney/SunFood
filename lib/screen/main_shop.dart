@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sunfood/utility/my_style.dart';
 import 'package:sunfood/utility/signout_process.dart';
+import 'package:sunfood/widget/infomation_shop.dart';
+import 'package:sunfood/widget/list_food_maau_shop.dart';
+import 'package:sunfood/widget/order_list_shop.dart';
 
 class MainShop extends StatefulWidget {
   MainShop({Key key}) : super(key: key);
@@ -10,6 +13,9 @@ class MainShop extends StatefulWidget {
 }
 
 class _MainShopState extends State<MainShop> {
+//Field
+  Widget currentWidget = OrderListShop();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +29,7 @@ class _MainShopState extends State<MainShop> {
         ],
       ),
       drawer: showDrawer(),
+      body: currentWidget,
     );
   }
 
@@ -39,31 +46,43 @@ class _MainShopState extends State<MainShop> {
       );
 
   ListTile homeMenu() => ListTile(
-        leading: Icon(Icons.home),
-        title: Text('Order that coustomer order'),
-        subtitle: Text('Order that we didnt do it'),
-        onTap: () => Navigator.pop(context),
-      );
+      leading: Icon(Icons.home),
+      title: Text('Order that coustomer order'),
+      subtitle: Text('Order that we didnt do it'),
+      onTap: () {
+        setState(() {
+          currentWidget = OrderListShop();//pop page out
+        });
+        Navigator.pop(context);
+      });
 
   ListTile foodMenu() => ListTile(
-        leading: Icon(Icons.fastfood),
-        title: Text('Menu'),
-        subtitle: Text('all our food'),
-        onTap: () => Navigator.pop(context),
-      );
+      leading: Icon(Icons.fastfood),
+      title: Text('Menu'),
+      subtitle: Text('all our food'),
+      onTap: () {
+        setState(() {
+          currentWidget = ListFoodMenuShop();
+        });
+        Navigator.pop(context);
+      });
 
   ListTile infomationMenu() => ListTile(
         leading: Icon(Icons.info),
         title: Text('Inforation'),
         subtitle: Text('all detaill ,open hr, lose'),
-        onTap: () => Navigator.pop(context),
-      );
+        onTap: () {
+        setState(() {
+          currentWidget = InfomationShop();
+        });
+        Navigator.pop(context);
+      });
 
   ListTile signOutMenu() => ListTile(
         leading: Icon(Icons.logout),
         title: Text('sign out'),
         subtitle: Text('sig out and back'),
-        onTap: () =>signOutProcess(context),
+        onTap: () => signOutProcess(context),
       );
 
   UserAccountsDrawerHeader showHead() {

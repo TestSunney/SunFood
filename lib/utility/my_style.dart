@@ -32,5 +32,18 @@ class MyStyle {
             color: MyStyle().primary,
             fontWeight: FontWeight.bold),
       );
+
+  Widget titleCenter(BuildContext context,String string) {
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width*0.5,//hafe os screen
+        child: Text(
+          string,
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }//text center
+
   MyStyle();
 }
