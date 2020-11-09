@@ -1,7 +1,9 @@
 # sunfood
 
-A new Flutter project.
+This prroject is About ABAC's food app.
 
+I lost my soul while developing this app...
+https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif
 ## Getting Started
 
 This project is a starting point for a Flutter application.
