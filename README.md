@@ -3,7 +3,9 @@
 This prroject is About ABAC's food app.
 
 I lost my soul while developing this app...
-<img src="https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif" width="40" height="40" />
+
+
+<img src="https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif"  />
 
 
 ## Getting Started
