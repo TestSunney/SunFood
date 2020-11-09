@@ -10,31 +10,29 @@ class AddInfoShop extends StatefulWidget {
 
 class _AddInfoShopState extends State<AddInfoShop> {
 //Field
-  double lat, lng;
+  //double lat, lng;
   @override
   void initState() {
     super.initState();
-    findLatLng();
   }
 
+  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
+  GoogleMapController _controller;
+  Location _location = Location();
 
-  Future<Null> findLatLng() async {
-    LocationData locationData = await findLocationData();
-    setState(() {
-      lat = locationData.latitude;
-      lng = locationData.longitude;
-    });
-    print('lat = $lat, lng = $lng');
+  void _onMapCreated(GoogleMapController _cntlr) {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen(
+      (l) {
+        _controller.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(target: LatLng(l.latitude, l.longitude), zoom: 15),
+          ),
+        );
+      },
+    );
   }
 
-  Future<LocationData> findLocationData() async {
-    Location _location = Location();
-    try {
-      return _location.getLocation();
-    } catch (e) {
-      return null;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,19 +80,22 @@ class _AddInfoShopState extends State<AddInfoShop> {
   }
 
   Container showMap() {
-    LatLng latLng = LatLng(lat, lng);
-    CameraPosition cameraPosition = CameraPosition(
-      target: latLng,
-      zoom: 16.0,
-    );
+    LatLng latLng = LatLng(13.611503, 100.840156);
+    CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 16.0);
 
-   return Container(
-      height: 300.0,
-      child: GoogleMap(
-        initialCameraPosition: cameraPosition,
-        mapType: MapType.normal,
-        onMapCreated: (controller) {},
-        //markers: myMarker(),
+    return Container(
+      height: 250,
+      width: MediaQuery.of(context).size.width,
+      child: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition:
+                CameraPosition(target: _initialcameraposition),
+            mapType: MapType.normal,
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+          ),
+        ],
       ),
     );
   }

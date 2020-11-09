@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunfood/screen/add_info_shop.dart';
 import 'package:sunfood/screen/main_rider.dart';
 import 'package:sunfood/screen/main_shop.dart';
 import 'package:sunfood/screen/main_user.dart';
@@ -55,9 +56,25 @@ class _HomeState extends State<Home> {
 
   Drawer showDrawer() => Drawer(
         child: ListView(
-          children: <Widget>[showHeadDrawer(), signInMenu(), signUpMenu()],
+          children: <Widget>[showHeadDrawer(), signInMenu(), signUpMenu(),testBtn()],
         ),
       );
+
+ListTile testBtn() {
+    return ListTile(
+        leading: Icon(Icons.local_pizza),
+        title: Text('Sign In'),
+        onTap: () {
+          MaterialPageRoute route =
+              MaterialPageRoute(builder: (value) => AddInfoShop());
+          Navigator.push(context, route);
+        });
+  }
+
+
+
+
+      
 
   ListTile signInMenu() {
     return ListTile(
