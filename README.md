@@ -3,7 +3,9 @@
 This prroject is About ABAC's food app.
 
 I lost my soul while developing this app...
-<iframe src="https://giphy.com/embed/zOvBKUUEERdNm" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/coding-zOvBKUUEERdNm">via GIPHY</a></p>
+<img src="https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif" width="40" height="40" />
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
