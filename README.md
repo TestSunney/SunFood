@@ -1,6 +1,6 @@
 # sunfood
 
-This prroject is About ABAC's food app.
+This project is all about ABAC's food app.
 
 I lost my soul while developing this app...
 
