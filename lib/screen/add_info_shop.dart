@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:sunfood/utility/my_style.dart';
 
@@ -11,6 +14,7 @@ class AddInfoShop extends StatefulWidget {
 class _AddInfoShopState extends State<AddInfoShop> {
 //Field
   double lat, lng;
+  File file; //for image
   @override
   void initState() {
     super.initState();
@@ -64,27 +68,43 @@ class _AddInfoShopState extends State<AddInfoShop> {
     );
   }
 
-  Row groupImage() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.add_a_photo,
-                size: 40,
-              ),
-              onPressed: () {}),
-          Container(
-            width: 250.0,
-            child: Image.asset('images/myimage.png'),
-          ),
-          IconButton(
-              icon: Icon(
-                Icons.add_photo_alternate,
-                size: 40,
-              ),
-              onPressed: () {})
-        ],
+  Row groupImage() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        IconButton(
+            icon: Icon(
+              Icons.add_a_photo,
+              size: 40,
+            ),
+            onPressed: () => chooseImage(ImageSource.camera)),
+        Container(
+          width: 250.0,
+          child: Image.asset('images/myimage.png'),
+        ),
+        IconButton(
+            icon: Icon(
+              Icons.add_photo_alternate,
+              size: 40,
+            ),
+            onPressed: () => chooseImage(ImageSource.gallery)),
+      ],
+    );
+  }
+
+  Future<Null> chooseImage(ImageSource imageSource) async {
+    try {
+      var object = await ImagePicker.pickImage(
+        source: imageSource,
+        maxHeight: 800.00,
+        maxWidth: 800.00,
       );
+      setState(() {
+        file = object;
+      });
+    } catch (e) {}
+  }
+
   Widget nameFrom() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
