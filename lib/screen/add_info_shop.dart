@@ -17,7 +17,6 @@ class _AddInfoShopState extends State<AddInfoShop> {
     findLatLng();
   }
 
-
   Future<Null> findLatLng() async {
     LocationData locationData = await findLocationData();
     setState(() {
@@ -54,47 +53,13 @@ class _AddInfoShopState extends State<AddInfoShop> {
             MyStyle().mySizeBox(),
             groupImage(),
             MyStyle().mySizeBox(),
-            showMap(),
+            lat == null
+                ? MyStyle().showProgress()
+                : showMap(), // if lat is null, do progress, else showmap
             MyStyle().mySizeBox(),
             saveBtn()
           ],
         ),
-      ),
-    );
-  }
-
-  Widget saveBtn() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: RaisedButton.icon(
-        color: MyStyle().primary,
-        onPressed: () {},
-        icon: Icon(
-          Icons.save,
-          color: Colors.white,
-        ),
-        label: Text(
-          'Save Inforation',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Container showMap() {
-    LatLng latLng = LatLng(lat, lng);
-    CameraPosition cameraPosition = CameraPosition(
-      target: latLng,
-      zoom: 16.0,
-    );
-
-   return Container(
-      height: 300.0,
-      child: GoogleMap(
-        initialCameraPosition: cameraPosition,
-        mapType: MapType.normal,
-        onMapCreated: (controller) {},
-        //markers: myMarker(),
       ),
     );
   }
@@ -120,7 +85,6 @@ class _AddInfoShopState extends State<AddInfoShop> {
               onPressed: () {})
         ],
       );
-
   Widget nameFrom() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -136,7 +100,6 @@ class _AddInfoShopState extends State<AddInfoShop> {
           ),
         ],
       );
-
   Widget addressFrom() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -168,4 +131,52 @@ class _AddInfoShopState extends State<AddInfoShop> {
           ),
         ],
       );
+
+  Set<Marker> myMarker() {
+    return <Marker>[
+      Marker(
+        markerId: MarkerId('myShop'),
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(
+          title: 'Your resterong',
+          snippet: 'lat =$lat,lng=$lng',
+        ),
+      )
+    ].toSet();
+  } //Google map marker
+
+  Container showMap() {
+    LatLng latLng = LatLng(lat, lng);
+    CameraPosition cameraPosition = CameraPosition(
+      target: latLng,
+      zoom: 16.0,
+    );
+    return Container(
+      height: 300.0,
+      child: GoogleMap(
+        initialCameraPosition: cameraPosition,
+        mapType: MapType.normal,
+        onMapCreated: (controller) {},
+        markers: myMarker(),
+      ),
+    );
+  }
+
+  Widget saveBtn() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: RaisedButton.icon(
+        color: MyStyle().primary,
+        onPressed: () {},
+        icon: Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
+        label: Text(
+          'Save Inforation',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
 }

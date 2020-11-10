@@ -56,25 +56,23 @@ class _HomeState extends State<Home> {
 
   Drawer showDrawer() => Drawer(
         child: ListView(
-          children: <Widget>[showHeadDrawer(), signInMenu(), signUpMenu(),testBtn()],
+          children: <Widget>[
+            showHeadDrawer(),
+            signInMenu(),
+            signUpMenu(),
+            testMenu()
+          ],
         ),
       );
 
-ListTile testBtn() {
-    return ListTile(
-        leading: Icon(Icons.local_pizza),
-        title: Text('Sign In'),
-        onTap: () {
-          MaterialPageRoute route =
-              MaterialPageRoute(builder: (value) => AddInfoShop());
-          Navigator.push(context, route);
-        });
+  UserAccountsDrawerHeader showHeadDrawer() {
+    return UserAccountsDrawerHeader(
+      decoration: MyStyle().myBoxDecoration('guest.jpg'),
+      currentAccountPicture: MyStyle().showLogo(),
+      accountName: Text('Guest'),
+      accountEmail: Text('Plese Login'),
+    );
   }
-
-
-
-
-      
 
   ListTile signInMenu() {
     return ListTile(
@@ -98,13 +96,14 @@ ListTile testBtn() {
         });
   }
 
-  UserAccountsDrawerHeader showHeadDrawer() {
-    return UserAccountsDrawerHeader(
-      decoration:MyStyle().myBoxDecoration('guest.jpg'),
-      
-      currentAccountPicture: MyStyle().showLogo(),
-      accountName: Text('Guest'),
-      accountEmail: Text('Plese Login'),
-    );
+  ListTile testMenu() {
+    return ListTile(
+        leading: Icon(Icons.location_city),
+        title: Text('**Go to add res_info'),
+        onTap: () {
+          MaterialPageRoute route =
+              MaterialPageRoute(builder: (value) => AddInfoShop());
+          Navigator.push(context, route);
+        });
   }
 }

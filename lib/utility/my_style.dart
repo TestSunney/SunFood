@@ -4,6 +4,12 @@ class MyStyle {
   Color primary = Colors.red;
   Color secondry = Colors.red[100];
 
+  Widget showProgress() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }//Prsgress bar
+
   BoxDecoration myBoxDecoration(String namePic) {
     return BoxDecoration(
       image: DecorationImage(
@@ -33,17 +39,17 @@ class MyStyle {
             fontWeight: FontWeight.bold),
       );
 
-  Widget titleCenter(BuildContext context,String string) {
+  Widget titleCenter(BuildContext context, String string) {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width*0.5,//hafe os screen
+        width: MediaQuery.of(context).size.width * 0.5, //hafe os screen
         child: Text(
           string,
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
       ),
     );
-  }//text center
+  } //text center
 
   MyStyle();
 }
